@@ -200,7 +200,7 @@ if($_POST)
 <body>
 	<div class="logincover">
 		<img src="image/acien.png" class="logo">
-		<a class='payroll_text'>Payroll</a>
+		<a class='payroll_text'>Cashier</a>
 		<div class="loginbox">
 			<img src="image/login_picture.png" class="login_logo">
 			 <?php echo $password_status; ?>
