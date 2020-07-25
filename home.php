@@ -286,7 +286,7 @@ $button_for_user = $_SESSION['user_submit'];
  <!DOCTYPE html>
  <html>
  <head>
-  <title>Tobi Tobi</title>
+  <title>Cashier Bandrek 88 Coco</title>
   <link href="style_index.css" rel = "stylesheet" type="text/css">
 
 
