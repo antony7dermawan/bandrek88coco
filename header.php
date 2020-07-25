@@ -4,8 +4,8 @@
  		<?php
 		
 		echo "<li".$selected_header[0]."> <a href='home.php'> Cashier</a></li>";
-		echo "<li".$selected_header[1]."> <a href='master.php'> Master</a></li>";
-        echo "<li".$selected_header[2]."> <a href='/acien/login_product.php'> Logout</a></li>";
+		echo "<li".$selected_header[1]."> <a href='stock.php'> Stock</a></li>";
+        echo "<li".$selected_header[2]."> <a href='index.php'> Logout</a></li>";
 		
 		
 		

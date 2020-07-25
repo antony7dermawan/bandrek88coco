@@ -116,7 +116,7 @@ body
 	font-size: 80px;
 	border-radius:20px;
 }
-.total_sum input[name='button_transaction']
+.total_sum input[type='submit']
 {
 	width:200px;
 	height: 100px;
@@ -127,7 +127,7 @@ body
 	font-size: 45px;
 	border-radius:20px;
 }
-.total_sum input[name='button_transaction']:hover
+.total_sum input[type='submit']:hover
 {
 	background: red;
 	color:#000;

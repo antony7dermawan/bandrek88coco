@@ -11,6 +11,19 @@ $login_title = 'Online Apps Login';
 session_start();
 
 
+$_SESSION['user_text']='TOTAL=';
+$_SESSION['user_submit']='SUBMIT';
+$_SESSION['user_cash']=0;
+$_SESSION['line_id'] = 0;
+$_SESSION['remain_logic']=0;
+$_SESSION['textbox_discount']='';
+$_SESSION['date_main']=date('Y-m-d');
+$_SESSION['total_sum']=0;
+$_SESSION['discount_price']=0;
+$_SESSION['discount_percentage']=0;
+$_SESSION['discount_price_limit']=0;
+
+
 
 
 
