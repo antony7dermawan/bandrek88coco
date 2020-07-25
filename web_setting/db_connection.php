@@ -1,11 +1,20 @@
 <?php
-try
-{
-  $conn = new PDO( "sqlsrv:Server=ASUSZENBOOK13\SQLEXPRESS,49678;Database=es_payroll", "antony", "1234");
-  $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-  }
-  catch(Exception $e)
-  {
-  die( print_r( $e->getMessage() ) );
-}
+$dbservername = "us-cdbr-east-02.cleardb.com";
+$dbusername = "b2c1080f9dc14f";
+$dbpassword = "2d472283";
+$dbname = "heroku_dfb97b98a1fad88";
+
+$conn = mysqli_connect($dbservername,$dbusername,$dbpassword,$dbname);
+
 ?>
+
+
+
+
+
+
+
+
+
+
+

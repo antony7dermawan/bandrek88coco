@@ -1,0 +1,224 @@
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+
+	background: url(main_background.jpg);
+	heigh: 100vh;
+	background-size: cover;
+	background-position: center;
+}
+.main_table{
+	width:1200px;
+	height: 700px;
+	background: #fff;
+	color: #000;
+	margin-top:430px;
+	margin-left:620px;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	box-sizing:border-box;
+	padding :10px 30px;
+	border-radius:20px;
+}
+.main_transaction{
+	width:800px;
+	height: 700px;
+	background: #fff;
+	color: #000;
+	margin-top:430px;
+	margin-left:420px;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	box-sizing:border-box;
+	padding :10px 30px;
+	border-radius:20px;
+}
+.main_transaction input[type="submit"]
+{
+	width: 350px;
+	border:none;
+	outline: none;
+	height:60px;
+	background: blue;
+	color:#fff;
+	font-size:20px;
+	border-radius:5px;
+}
+.main_transaction input[type="submit"]:hover
+{
+	cursor:pointer;
+	background: #ffc107;
+	color: #000;
+}
+.main_transaction input[class='red']
+{
+	width: 350px;
+	border:none;
+	outline: none;
+	height:60px;
+	background: #fb2525;
+	color:#fff;
+	font-size:20px;
+	border-radius:5px;
+}
+.main_transaction input[class='red']:hover
+{
+	cursor:pointer;
+	background: #fb2525;
+	color: #000;
+}
+.main_transaction_struck{
+	width:400px;
+	height: 700px;
+	background: #fff;
+	color: #000;
+	margin-top:430px;
+	margin-left:1050px;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	box-sizing:border-box;
+	padding :10px 30px;
+	border-radius:20px;
+}
+.total_sum{
+	margin-top: 450px;
+	background: blue;
+	position: fixed;
+	top:0;
+	width: 100%;
+	height:100px;
+}
+.total_sum a{
+
+	color: #fff;
+	float: left;
+	font-size: 80px;
+}
+.total_sum input{
+	width:600px;
+	height: 100px;
+	background: #fff;
+	color: #000;
+	float: left;
+	font-size: 80px;
+	border-radius:20px;
+}
+.total_sum input[name='textbox_total']{
+	width:600px;
+	height: 100px;
+	background: #fff;
+	color: #000;
+	float: left;
+	font-size: 80px;
+	border-radius:20px;
+}
+.total_sum input[name='button_transaction']
+{
+	width:200px;
+	height: 100px;
+	background: crimson;
+	color: #fff;
+	float: left;
+	margin-left: 30px;
+	font-size: 45px;
+	border-radius:20px;
+}
+.total_sum input[name='button_transaction']:hover
+{
+	background: red;
+	color:#000;
+}
+
+.main_transaction_struck input[name='delete_all']
+{
+	width:150px;
+	height: 40px;
+	background: blue;
+	color: #fff;
+	float: left;
+	margin-left: 0px;
+	font-size: 20px;
+	border-radius:10px;
+}
+.main_transaction_struck input[name='delete_all']:hover
+{
+
+	background: navy;
+	color: #fff;
+
+}
+
+.transaction_table
+{
+  border-collapse: collapse;
+  margin:25px 0;
+  font-size: 12px;
+  min-width: 350px;
+
+  border-radius:5px 5px 0 0;
+  overflow: hidden;
+  box-shadow:0 0 20px rgba(0,0,0,0.15);
+}
+
+.transaction_table thead tr{
+  background: blue;
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+
+
+}
+
+.transaction_table tr
+.transaction_table th{
+  padding: 12px 15px;
+}
+.transaction_table tbody tr{
+  text-align: center;
+  border-bottom: 1px solid #dddddd;
+}
+.transaction_table tbody tr:hover
+{
+  text-align: center;
+  border-bottom: 1px solid #dddddd;
+  font-weight: bold;
+}
+.transaction_table tbody tr:nth-of-type(even){
+  background-color: #f3f3f3;
+}
+.transaction_table tbody tr:last-of-type{
+  border-bottom: 2px solid #009879;
+}
+
+
+.main_report
+{
+	width:800px;
+	height: 700px;
+	background: #fff;
+	color: #000;
+	margin-top:430px;
+	margin-left:420px;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	box-sizing:border-box;
+	padding :10px 30px;
+	border-radius:20px;
+}
+.main_in_out{
+	width:1200px;
+	height: 700px;
+	background: #fff;
+	color: #000;
+	margin-top:430px;
+	margin-left:620px;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	box-sizing:border-box;
+	padding :10px 30px;
+	border-radius:20px;
+}
