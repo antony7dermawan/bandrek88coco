@@ -7,6 +7,9 @@ for($i=0;$i<20;$i++)
   $selected_header[$i]='';
 }
 $selected_header[0]=" class='active'";
+$t_login_user_access=$_SESSION['t_login_user_access'];
+$t_login_user_control=$_SESSION["t_login_user_control"];
+
 
 
 
@@ -25,7 +28,7 @@ $discount_price_limit=$_SESSION['discount_price_limit'];
 
 
 $DB_TABLE_NAME = 'T_T_STOCK';
-$select_db = "SELECT * FROM {$DB_TABLE_NAME}";
+$select_db = "SELECT * FROM {$DB_TABLE_NAME} where access='{$t_login_user_access}'";
 $select_ex = $conn->query($select_db);
 if($select_ex->num_rows> 0)
 {
@@ -60,7 +63,7 @@ for($i=0;$i<$total_row;$i++)
   {
     $name_=$_POST['c_name_'.$i];
     $DB_TABLE_NAME = 'T_T_TRANSACTION';
-    $select_db = "SELECT qty FROM {$DB_TABLE_NAME} where(ID_NAME='{$name_}')";
+    $select_db = "SELECT qty FROM {$DB_TABLE_NAME} where(ID_NAME='{$name_}' and access='{$t_login_user_access}')";
     $select_ex = $conn->query($select_db);
     if($select_ex->num_rows> 0)
     {
@@ -92,7 +95,7 @@ for($i=0;$i<$total_row;$i++)
               */
 
               $DB_TABLE_NAME = 'T_T_TRANSACTION';
-              $insert_db = "insert into {$DB_TABLE_NAME} values ('0','{$id_name_i}','{$qty_i}','{$total_i}','{$sell_price_i}')";
+              $insert_db = "insert into {$DB_TABLE_NAME} values ('0','{$id_name_i}','{$qty_i}','{$total_i}','{$sell_price_i}','{$t_login_user_access}')";
               $insert_ex = $conn->query($insert_db);
 
 
@@ -109,7 +112,7 @@ for($i=0;$i<$total_row;$i++)
               */
 
               $DB_TABLE_NAME = 'T_T_TRANSACTION';
-              $update_db = "update {$DB_TABLE_NAME}  set QTY= '{$qty_i}',TOTAL='{$total_i}',PRICE='{$sell_price_i}' where ID_NAME = '{$id_name_i}'";
+              $update_db = "update {$DB_TABLE_NAME}  set QTY= '{$qty_i}',TOTAL='{$total_i}',PRICE='{$sell_price_i}' where ID_NAME = '{$id_name_i}' and access='{$t_login_user_access}'";
               $update_ex = $conn->query($update_db);
               #header("Location: home.php");
       }
@@ -137,12 +140,20 @@ for($i=0;$i<$total_row;$i++)
 
 
 
+if(isset($_POST['delete_all']))
+{
+  $DB_TABLE_NAME = 'T_T_TRANSACTION';
+  $delete_db = "delete from {$DB_TABLE_NAME} where access='{$t_login_user_access}'";
+  $delete_ex = $conn->query($delete_db);
+}
+
+
 
 $total_belanja = 0;
 
 
 $DB_TABLE_NAME = 'T_T_TRANSACTION';
-$select_db = "SELECT * FROM {$DB_TABLE_NAME}";
+$select_db = "SELECT * FROM {$DB_TABLE_NAME} where access='{$t_login_user_access}'";
 $select_ex = $conn->query($select_db);
 if($select_ex->num_rows> 0)
 {
@@ -170,19 +181,23 @@ if($select_ex->num_rows== 0)
   $id_total_struck[0]=0;
 }
 
-
-if(isset($_POST['delete_all']))
+for($i=0;$i<=$struck_row;$i++)
 {
-  $DB_TABLE_NAME = 'T_T_TRANSACTION';
-  $delete_db = "delete from {$DB_TABLE_NAME}";
-  $delete_ex = $conn->query($delete_db);
-  header("Location: home.php");
+  if(isset($_POST['delete_'.$i]))
+  {
+    $DB_TABLE_NAME = 'T_T_TRANSACTION';
+    $delete_db = "delete from {$DB_TABLE_NAME} where (id='{$id_struck[$i]}' and access='{$t_login_user_access}')";
+    $delete_ex = $conn->query($delete_db);
+    header("Location: home.php");
+  }
 }
+
+
 
 if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='CLEAR')
 {
   $DB_TABLE_NAME = 'T_T_TRANSACTION';
-  $delete_db = "delete from {$DB_TABLE_NAME}";
+  $delete_db = "delete from {$DB_TABLE_NAME} where access='{$t_login_user_access}'";
   $delete_ex = $conn->query($delete_db);
   $_SESSION['user_submit']='SUBMIT';
   header("Location: home.php");
@@ -197,7 +212,7 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' an
   $_SESSION['user_submit']='CLEAR';
 
   $DB_TABLE_NAME = 'T_T_TRANSACTION';
-    $select_db = "SELECT ID_NAME,QTY FROM {$DB_TABLE_NAME}";
+    $select_db = "SELECT ID_NAME,QTY FROM {$DB_TABLE_NAME} where access='{$t_login_user_access}'";
     $select_ex = $conn->query($select_db);
     if($select_ex->num_rows> 0)
     {
@@ -216,7 +231,7 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' an
       
 
       $DB_TABLE_NAME = 'T_T_STOCK';
-      $select_db = "SELECT qty,buy_price,sell_price FROM {$DB_TABLE_NAME} where(id_name='{$name_for_update[$i]}')" ;
+      $select_db = "SELECT qty,buy_price,sell_price FROM {$DB_TABLE_NAME} where(id_name='{$name_for_update[$i]}' and access='{$t_login_user_access}')" ;
       $select_ex = $conn->query($select_db);
       if($select_ex->num_rows> 0)
       {
@@ -233,7 +248,7 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' an
 
 
       $DB_TABLE_NAME = 'T_T_STOCK';
-      $update_db = "update {$DB_TABLE_NAME}  set QTY= '{$qty_for_update}' where ID_NAME = '{$name_for_update[$i]}'";
+      $update_db = "update {$DB_TABLE_NAME}  set QTY= '{$qty_for_update}' where ID_NAME = '{$name_for_update[$i]}' and access='{$t_login_user_access}'";
       $update_ex = $conn->query($update_db);
 #................................................DISINI UNTUK INSERT TABLE REPORT
 
@@ -250,7 +265,7 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' an
 
 
       $DB_TABLE_NAME = 'T_T_REPORT';
-      $insert_db = "insert into {$DB_TABLE_NAME} values ('{$report_id_date_time}','{$report_id_name}','{$report_qty}','{$report_profit}','{$report_total_cash}','{$report_id_date}')";
+      $insert_db = "insert into {$DB_TABLE_NAME} values ('{$report_id_date_time}','{$report_id_name}','{$report_qty}','{$report_profit}','{$report_total_cash}','{$report_id_date}','{$t_login_user_access}')";
       $insert_ex = $conn->query($insert_db);
 
     }
@@ -357,7 +372,7 @@ $button_for_user = $_SESSION['user_submit'];
             <?php
 
             for($i=0;$i<=$struck_row;$i++)
-            {
+            {#delete_
               $h=$i+1;
 
                 echo "<tr><th>".$h."</th><th>".$id_name_struck[$i]."</th><th>".$id_qty_struck[$i]."</th><th>Rp ".number_format($id_price_struck[$i])."</th><th>Rp ".number_format($id_total_struck[$i])."</th><th><input type='submit' name='delete_".$i."' value='-'></th></tr></tr>";
