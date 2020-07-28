@@ -1,12 +1,38 @@
+<?php
+$t_login_user_access=$_SESSION['t_login_user_access'];
+$t_login_user_control=$_SESSION["t_login_user_control"];
+
+
+?>
+
+
+
 <div class= "top_button">
  	<ul class="main-nav">
  		<img src="image/acien.png" class="logo">
  		<?php
+		if($t_login_user_control==0) #admin
+		{
+			echo "<li".$selected_header[0]."> <a href='home.php'> Cashier</a></li>";
+			echo "<li".$selected_header[1]."> <a href='stock_information.php'> Stock</a></li>";
+			echo "<li".$selected_header[2]."> <a href='report.php'> Report</a></li>";
+			echo "<li".$selected_header[3]."> <a href='change_password.php'> Change Password</a></li>";
+			echo "<li".$selected_header[4]."> <a href='gaji_karyawan.php'> Gaji Karyawan</a></li>";
+	        echo "<li".$selected_header[5]."> <a href='index.php'> Logout</a></li>";
+		}
+		if($t_login_user_control==1) #kasir
+		{
+			echo "<li".$selected_header[0]."> <a href='home.php'> Cashier</a></li>";
+			echo "<li".$selected_header[3]."> <a href='change_password.php'> Change Password</a></li>";
+	        echo "<li".$selected_header[4]."> <a href='index.php'> Logout</a></li>";
+		}
+		if($t_login_user_control==99) #karyawan
+		{
+			echo "<li".$selected_header[0]."> <a href='absen.php'> absen</a></li>";
+			echo "<li".$selected_header[3]."> <a href='change_password.php'> Change Password</a></li>";
+	        echo "<li".$selected_header[4]."> <a href='index.php'> Logout</a></li>";
+		}
 		
-		echo "<li".$selected_header[0]."> <a href='home.php'> Cashier</a></li>";
-		echo "<li".$selected_header[1]."> <a href='stock_information.php'> Stock</a></li>";
-		echo "<li".$selected_header[2]."> <a href='report.php'> Report</a></li>";
-        echo "<li".$selected_header[3]."> <a href='index.php'> Logout</a></li>";
 		
 		
 		

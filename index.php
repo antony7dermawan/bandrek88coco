@@ -44,12 +44,22 @@ if(isset($_POST['login_button']))
 				$t_login_user_control= ($select_db["control"]);
 				$t_login_user_status= ($select_db["status"]);
 			}
+
+			$_SESSION['t_login_user_username']=$textbox_id_user;
+			$_SESSION['t_login_user_password']=$textbox_id_password;
 			$_SESSION['t_login_user_access'] = $t_login_user_access;
 			$_SESSION["t_login_user_control"] = $t_login_user_control;
 			$_SESSION["t_login_user_status"] = $t_login_user_status;
 
-		
-			header("Location: home.php");				
+			if($t_login_user_control==0 or $t_login_user_control==1)
+			{
+				header("Location: home.php");
+			}
+			if($t_login_user_control==99)
+			{
+				header("Location: absen.php");
+			}
+							
 			
 		}
 		if($select_ex->num_rows== 0)
