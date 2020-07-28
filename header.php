@@ -23,7 +23,7 @@ $t_login_user_control=$_SESSION["t_login_user_control"];
 		if($t_login_user_control==1) #kasir
 		{
 			echo "<li".$selected_header[0]."> <a href='home.php'> Cashier</a></li>";
-			echo "<li".$selected_header[3]."> <a href='change_password.php'> Change Password</a></li>";
+			
 	        echo "<li".$selected_header[4]."> <a href='index.php'> Logout</a></li>";
 		}
 		if($t_login_user_control==99) #karyawan

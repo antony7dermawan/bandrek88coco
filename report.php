@@ -129,7 +129,6 @@ for($i=0;$i<=$total_item;$i++)
 
 
 
-
 $total_modal = $total_sum-$total_profit;
 ?>
 
