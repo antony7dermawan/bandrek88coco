@@ -1,6 +1,8 @@
 <?php
 include('web_setting/db_connection.php');
 session_start();
+date_default_timezone_set('Asia/Jakarta');
+
 
 for($i=0;$i<20;$i++)
 {
