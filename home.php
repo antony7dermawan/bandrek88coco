@@ -13,17 +13,64 @@ $t_login_user_control=$_SESSION["t_login_user_control"];
 
 
 
-$textbox_discount=$_SESSION['textbox_discount'];
+
 $struck_row=0;
 
 $text_for_user = $_SESSION['user_text'];
 $button_for_user = $_SESSION['user_submit'];
 $total_sum= $_SESSION['total_sum'];
+
+
+
+#.................................diskon logic
+  
+
+
+
+if(isset($_POST['submit_discount']))
+{
+  $_SESSION['textbox_discount']=$_POST['textbox_discount'];
+  $today=date('Y-m-d');
+
+  $discount_percentage=0;
+  $discount_price_limit=0;
+  $discount_price=0;
+
+  $textbox_discount=$_SESSION['textbox_discount'];
+
+  $DB_TABLE_NAME = 'T_T_DISCOUNT';
+  $select_db = "SELECT * FROM {$DB_TABLE_NAME} where(PROMO_NO='{$textbox_discount}' and EXPIRE_DATE>='{$today}' and DISCOUNT_QTY>='1')";
+  $select_ex = $conn->query($select_db);
+  if($select_ex->num_rows> 0)
+  {
+    while($select_db = $select_ex->fetch_assoc())
+    {
+      $discount_percentage= ($select_db['discount_percentage']);
+      $discount_price= ($select_db['discount_price']);
+      $discount_price_limit= ($select_db['discount_price_limit']);
+      $discount_qty= ($select_db['discount_qty']);
+      $expire_date= ($select_db['expire_date']);
+
+
+      $_SESSION['discount_qty']=$discount_qty;
+      $_SESSION['discount_price']=$discount_price;
+      $_SESSION['discount_percentage']=$discount_percentage;
+      $_SESSION['discount_price_limit']=$discount_price_limit;
+    }      
+  }
+  if($select_ex->num_rows== 0)
+  {
+
+  }
+}
+
+$discount_qty=$_SESSION['discount_qty'];
+$textbox_discount=$_SESSION['textbox_discount'];
 $discount_price=$_SESSION['discount_price'];
 $discount_percentage=$_SESSION['discount_percentage'];
 $discount_price_limit=$_SESSION['discount_price_limit'];
 
-
+  #....................................diskon login end
 
 
 
@@ -166,6 +213,20 @@ if($select_ex->num_rows> 0)
     $id_total_struck[]= (($select_db['total']));
 
     $total_belanja=$total_belanja+ intval(($select_db['total']));
+    
+
+  }
+  if($total_belanja>=$discount_price)
+  {
+    if($total_belanja>=$discount_price_limit)
+    {
+        $total_belanja = $total_belanja-$discount_price_limit;
+    }
+    else
+    {
+      $total_belanja = intval($total_belanja-(($total_belanja*$discount_percentage)/100));
+    }
+    
   }
   foreach( array_keys($id_struck) as $struck_row ){}
   $_SESSION['struck_row']=$struck_row;
@@ -199,7 +260,30 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='CLEAR')
   $DB_TABLE_NAME = 'T_T_TRANSACTION';
   $delete_db = "delete from {$DB_TABLE_NAME} where access='{$t_login_user_access}'";
   $delete_ex = $conn->query($delete_db);
+
+  $discount_qty=$discount_qty-1;
+  if($discount_qty>0)
+  {
+      $DB_TABLE_NAME = 'T_T_DISCOUNT';
+      $update_db = "update {$DB_TABLE_NAME}  set discount_qty= '{$discount_qty}' where(PROMO_NO='{$textbox_discount}')";
+      $update_ex = $conn->query($update_db);
+  }
+  if($discount_qty==0)
+  {
+      $DB_TABLE_NAME = 'T_T_DISCOUNT';
+      $delete_db = "delete from {$DB_TABLE_NAME} where(PROMO_NO='{$textbox_discount}')";
+      $delete_ex = $conn->query($delete_db);
+  }
+  
+
+  
+
+
   $_SESSION['user_submit']='SUBMIT';
+  $_SESSION['discount_price']=0;
+  $_SESSION['discount_percentage']=0;
+  $_SESSION['discount_price_limit']=0;
+  $_SESSION['textbox_discount']='';
   header("Location: home.php");
 }
 $button_transaction='button_transaction';
@@ -314,7 +398,7 @@ $button_for_user = $_SESSION['user_submit'];
       <a>Promo Code:</a>
       <input type='text' name='textbox_discount' placeholder='enter promo code here' value = '<?php echo $textbox_discount; ?>'>
       <input type='submit' name='submit_discount' value='Check Promo'>
-      <a><?php echo "Potongan Rp".number_format($discount_price)."/ Diskon .".$discount_percentage."% Maksimal Rp".number_format($discount_price_limit);?></a>
+      <a><?php echo "Minimal Rp".number_format($discount_price)."/ Diskon ".$discount_percentage."% Maksimal Rp".number_format($discount_price_limit);?></a>
     </form>
   </div>
   <div class="main_transaction">

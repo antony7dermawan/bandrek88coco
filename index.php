@@ -22,7 +22,7 @@ $_SESSION['total_sum']=0;
 $_SESSION['discount_price']=0;
 $_SESSION['discount_percentage']=0;
 $_SESSION['discount_price_limit']=0;
-
+$_SESSION['discount_qty']=0;
 
 
 
