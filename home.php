@@ -201,7 +201,7 @@ if(isset($_POST['delete_all']))
 
 $total_belanja = 0;
 
-
+$total_discount=0;
 $DB_TABLE_NAME = 'T_T_TRANSACTION';
 $select_db = "SELECT * FROM {$DB_TABLE_NAME} where access='{$t_login_user_access}'";
 $select_ex = $conn->query($select_db);
@@ -232,7 +232,7 @@ if($select_ex->num_rows> 0)
     }
     
   }
-  $_SESSION['discount_receipt'] = $total_belanja_a-$total_belanja;
+  $total_discount = $total_belanja_a-$total_belanja;
 
   foreach( array_keys($id_struck) as $struck_row ){}
   $_SESSION['struck_row']=$struck_row;
@@ -374,6 +374,17 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' an
       $report_profit=($report_sell_price-$report_buy_price)*$report_qty;
       $report_total_cash=$report_sell_price*$report_qty;
 
+
+      if($report_total_cash>=$total_discount)
+      {
+        $report_total_cash = $report_total_cash-$total_discount;
+        $total_discount=0;
+      }
+      if($report_total_cash<=$total_discount)
+      {
+        $total_discount=$total_discount-$report_total_cash;
+        $report_total_cash=0;
+      }
 
       $DB_TABLE_NAME = 'T_T_REPORT';
       $insert_db = "insert into {$DB_TABLE_NAME} values ('{$report_id_date_time}','{$report_id_name}','{$report_qty}','{$report_profit}','{$report_total_cash}','{$report_id_date}','{$t_login_user_access}','{$queue_id}','0')";

@@ -2,6 +2,25 @@
 require('fpdf17/fpdf.php');
 
 
+$discount_percentage=20;
+$discount_price=10000;
+$discount_price_limit=1000;
+$discount_qty=1;
+
+
+
+$today=date('Y-m-d');
+$date = strtotime($today);
+$date = strtotime("+7 day", $date);
+$expire_date= date('Y-m-d', $date);
+
+
+
+
+
+
+
+
 include('web_setting/db_connection.php');
 session_start();
 date_default_timezone_set('Asia/Jakarta');
@@ -65,7 +84,40 @@ $paper_height = intval(120+($struck_row*10));
 //A4 width : 219mm
 //default margin : 10mm each side
 //writable horizontal : 219-(10*2)=189mm
-$image1 = "image/logo_bandrek.png";
+#$image1 = "image/logo_bandrek.png";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -82,9 +134,9 @@ $pdf->SetFont('Arial','B',14);
 #$this->Cell( 40, 40, $pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 33.78), 0, 0, 'L', false );
 
 $pdf->Cell(45	,6,'Bandrek 88 Coco',0,0);
-$pdf->Cell(59	,6,$pdf->Image($image1, $pdf->GetX(), $pdf->GetY(), 7.5),0,1);//end of line
+$pdf->Cell(59	,6,'',0,1);//end of line
 $pdf->SetFont('Arial','',8);
-$pdf->Cell(45	,4,'Cabang: Jl. Pemuda depan Arta Aja',0,1);
+$pdf->Cell(45	,4,'Cabang: Jl. Pemuda depan Kerta Arja',0,1);
 
 $pdf->SetFont('Arial','',12);
 $pdf->Cell(40	,2,'------------------------------------',0,1);
@@ -110,6 +162,46 @@ for($i=0;$i<=$struck_row;$i++)
 $pdf->Cell(40	,2,'------------------------------------',0,1);
 $pdf->Cell(25	,5,'Sub Total',0,0);
 $pdf->Cell(20	,5,number_format($total_belanja),0,1,'R');
+
+
+
+
+
+
+
+#create promo
+$promo_no=0;
+if($total_belanja>=$discount_price)
+{
+  $promo_no=(rand(1000,9999));
+  $DB_TABLE_NAME = 't_t_discount';
+  $insert_db = "insert into {$DB_TABLE_NAME} values ('0','{$promo_no}','{$discount_percentage}','{$discount_price}','{$discount_price_limit}','{$discount_qty}','{$expire_date}','{$t_login_user_access}')";
+  $insert_ex = $conn->query($insert_db);
+}
+
+
+
+
+#create promo end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $pdf->Cell(25	,5,'Discount',0,0);
 $pdf->Cell(20	,5,number_format($discount_receipt),0,1,'R');
 
@@ -121,12 +213,28 @@ $pdf->Cell(20	,5,number_format($total_belanja),0,1,'R');
 
 $pdf->Cell(40	,2,'------------------------------------',0,1);
 
-$pdf->SetFont('Arial','B',12);
-$pdf->Cell(25	,5,'12345',0,1);
+if($promo_no!=0)
+{
+  $pdf->SetFont('Arial','',10);
+  $pdf->Cell(25 ,5,'Kode Promo =',0,0);
+  $pdf->SetFont('Arial','B',12);
+  $pdf->Cell(25 ,5,$promo_no,0,1);
 
-$pdf->SetFont('Arial','',8);
-$pdf->Cell(25	,3,'Dapatkan diskon 20 persen',0,1);
-$pdf->Cell(25	,5,'max Rp1,000 di pembelian selanjutnya',0,1);
+  $expire_date= date('d-m-Y', strtotime($expire_date));
+
+
+  $pdf->SetFont('Arial','',8);
+  $pdf->Cell(25 ,3,'Dapatkan diskon '.$discount_percentage.' persen',0,1);
+  $pdf->Cell(25 ,3,'max Rp'.number_format($discount_price_limit).' di pembelian selanjutnya',0,1);
+  $pdf->Cell(25 ,3,'Berlaku sampai '.$expire_date,0,1);
+}
+
+if($promo_no==0)
+{
+  $pdf->SetFont('Arial','',8);
+  $pdf->Cell(25 ,3,'Dapatkan kode promo',0,1);
+  $pdf->Cell(25 ,5,'setiap pembelanjaan minimal Rp10,000',0,1);
+}
 
 
 $pdf->SetFont('Arial','B',10);
