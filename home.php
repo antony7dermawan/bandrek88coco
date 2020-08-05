@@ -12,7 +12,7 @@ $selected_header[0]=" class='active'";
 $t_login_user_access=$_SESSION['t_login_user_access'];
 $t_login_user_control=$_SESSION["t_login_user_control"];
 
-
+$today=date('Y-m-d');
 
 
 
@@ -25,14 +25,15 @@ $total_sum= $_SESSION['total_sum'];
 
 
 #.................................diskon logic
-  
+ $print_ready = '';
+
 
 
 
 if(isset($_POST['submit_discount']))
 {
   $_SESSION['textbox_discount']=$_POST['textbox_discount'];
-  $today=date('Y-m-d');
+  
 
   $discount_percentage=0;
   $discount_price_limit=0;
@@ -218,6 +219,7 @@ if($select_ex->num_rows> 0)
     
 
   }
+  $total_belanja_a=$total_belanja;
   if($total_belanja>=$discount_price)
   {
     if($total_belanja>=$discount_price_limit)
@@ -230,6 +232,8 @@ if($select_ex->num_rows> 0)
     }
     
   }
+  $_SESSION['discount_receipt'] = $total_belanja_a-$total_belanja;
+
   foreach( array_keys($id_struck) as $struck_row ){}
   $_SESSION['struck_row']=$struck_row;
   $_SESSION['id_struck']=$id_struck;  
@@ -290,8 +294,29 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='CLEAR')
 }
 $button_transaction='button_transaction';
 
+
+
+
+
 if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' and $_POST['textbox_total']>=$total_belanja)
 {
+  $DB_TABLE_NAME = 'T_T_REPORT';
+  $select_db = "SELECT queue_id FROM {$DB_TABLE_NAME} where(id_date='{$today}') order by id_date_time desc limit 1" ;
+  $select_ex = $conn->query($select_db);
+  if($select_ex->num_rows> 0)
+  {
+    while($select_db = $select_ex->fetch_assoc())
+    {
+      $queue_id= (($select_db['queue_id']));
+    }
+    $queue_id=$queue_id+1;
+  }
+  if($select_ex->num_rows== 0)
+  {
+      $queue_id= 0;
+  }
+  $_SESSION['queue_id']=$queue_id;
+
   $text_for_user='Kembali=';
   $uang_diterima = $_POST['textbox_total'];
   $total_belanja = $uang_diterima-$total_belanja;
@@ -351,7 +376,7 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' an
 
 
       $DB_TABLE_NAME = 'T_T_REPORT';
-      $insert_db = "insert into {$DB_TABLE_NAME} values ('{$report_id_date_time}','{$report_id_name}','{$report_qty}','{$report_profit}','{$report_total_cash}','{$report_id_date}','{$t_login_user_access}')";
+      $insert_db = "insert into {$DB_TABLE_NAME} values ('{$report_id_date_time}','{$report_id_name}','{$report_qty}','{$report_profit}','{$report_total_cash}','{$report_id_date}','{$t_login_user_access}','{$queue_id}','0')";
       $insert_ex = $conn->query($insert_db);
 
     }
@@ -360,7 +385,10 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' an
 
 $button_for_user = $_SESSION['user_submit'];
 
-
+if($_SESSION['user_submit']=='SUBMIT')
+{
+  $print_ready = "setTimeout(printlayer,0)";
+}
 ?>
 
 
@@ -502,7 +530,7 @@ $_SESSION['total_order']=$total_sum;
 
  function printlayer(layer)
     {
-      window.open('print_receipt.php');
+      window.open('receipt.php');
     }
   
 

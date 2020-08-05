@@ -23,8 +23,9 @@ $_SESSION['discount_price']=0;
 $_SESSION['discount_percentage']=0;
 $_SESSION['discount_price_limit']=0;
 $_SESSION['discount_qty']=0;
-
-
+$_SESSION['queue_id']=0;
+$_SESSION['discount_receipt']=0;
+$_SESSION['cash']=0;
 
 
 if(isset($_POST['login_button']))
