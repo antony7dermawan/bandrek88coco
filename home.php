@@ -233,7 +233,7 @@ if($select_ex->num_rows> 0)
     
   }
   $total_discount = $total_belanja_a-$total_belanja;
-
+  $_SESSION['discount_receipt']=$total_discount;
   foreach( array_keys($id_struck) as $struck_row ){}
   $_SESSION['struck_row']=$struck_row;
   $_SESSION['id_struck']=$id_struck;  
