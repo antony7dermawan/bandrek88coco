@@ -368,6 +368,8 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' an
       
       $get_pc_date_time= getdate();
       $report_id_date_time = $get_pc_date_time['year'].'-'.$get_pc_date_time['mon'].'-'.$get_pc_date_time['mday'].' '.$get_pc_date_time['hours'].':'.$get_pc_date_time['minutes'].':'.$get_pc_date_time['seconds'].'.'.$i;
+
+
       $report_id_date= $get_pc_date_time['year'].'-'.$get_pc_date_time['mon'].'-'.$get_pc_date_time['mday'];
       $report_id_name= $name_for_update[$i];
       $report_qty = $qty_from_db_transaction[$i];
@@ -386,8 +388,11 @@ if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' an
         $report_total_cash=0;
       }
 
+
+      $report_id_date_time_int=(strtotime(date('Y-m-d H:i:s')))+$i;
+
       $DB_TABLE_NAME = 'T_T_REPORT';
-      $insert_db = "insert into {$DB_TABLE_NAME} values ('{$report_id_date_time}','{$report_id_name}','{$report_qty}','{$report_profit}','{$report_total_cash}','{$report_id_date}','{$t_login_user_access}','{$queue_id}','0')";
+      $insert_db = "insert into {$DB_TABLE_NAME} values ('{$report_id_date_time_int}','{$report_id_name}','{$report_qty}','{$report_profit}','{$report_total_cash}','{$report_id_date}','{$t_login_user_access}','{$queue_id}','0')";
       $insert_ex = $conn->query($insert_db);
 
     }
