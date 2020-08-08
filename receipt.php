@@ -73,7 +73,7 @@ $_SESSION['id_struck']=$id_struck;
 
 
 
-$paper_height = intval(120+($struck_row*10));
+$paper_height = intval(80+($struck_row*10));
 
 
 
