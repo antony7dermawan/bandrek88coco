@@ -24,11 +24,11 @@ $gaji_pokok = 900000;
 $potongan_alpa = 25000;
 $tj_kehadiran = 100000;
 
-$range_1 = 2200;
-$range_2 = 2500;
-$range_3 = 2800;
-$range_4 = 3100;
-$range_5 = 3400;
+$range_1 = 2500;
+$range_2 = 2800;
+$range_3 = 3100;
+$range_4 = 3500;
+$range_5 = 3800;
 
 
 $bonus_1 = 100000;
