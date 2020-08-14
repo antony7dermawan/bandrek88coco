@@ -17,6 +17,8 @@ $selected_date = $_POST['calender'];
 $_SESSION['date_main']=$selected_date;
 }
 
+$t_login_user_access=$_SESSION['t_login_user_access'];
+$t_login_user_control=$_SESSION["t_login_user_control"];
 
 
 
@@ -121,7 +123,7 @@ for($i=0;$i<=$total_item;$i++)
   }
   if($select_ex->num_rows== 0)
   {
-    $total_qty_sold[$i] =0;
+    $total_qty_sold[0] =0;
   }
 }
 
@@ -147,8 +149,12 @@ $total_modal = $total_sum-$total_profit;
 
     <?php
       echo 'OMSET = Rp '.number_format($total_sum).'<br>';
-      echo 'UNTUNG = Rp '.number_format($total_profit).'<br>';
-      echo 'MODAL = Rp '.number_format($total_modal).'<br>';
+      if($t_login_user_control==0) #admin
+      {
+        echo 'UNTUNG = Rp '.number_format($total_profit).'<br>';
+        echo 'MODAL = Rp '.number_format($total_modal).'<br>';
+      }
+      
 
      ?>
 
