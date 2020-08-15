@@ -300,6 +300,13 @@ $button_transaction='button_transaction';
 
 if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' and $_POST['textbox_total']>=$total_belanja)
 {
+  ?>
+  
+  <script>
+  window.open('receipt.php');
+  </script>
+
+  <?php
   $DB_TABLE_NAME = 'T_T_REPORT';
   $select_db = "SELECT queue_id FROM {$DB_TABLE_NAME} where(id_date='{$today}') order by id_date_time desc limit 1" ;
   $select_ex = $conn->query($select_db);
@@ -544,11 +551,12 @@ $_SESSION['total_order']=$total_sum;
 
 <script>
 
- function printlayer(layer)
+ /*function printlayer(layer)
     {
       window.open('receipt.php');
     }
-  
+  */
+
 
 
 </script>

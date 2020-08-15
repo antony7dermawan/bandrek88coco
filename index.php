@@ -9,7 +9,7 @@ include('web_setting/db_connection.php');
 $login_title = 'Online Apps Login';
 
 session_start();
-
+date_default_timezone_set('Asia/Jakarta');
 
 $_SESSION['user_text']='TOTAL=';
 $_SESSION['user_submit']='SUBMIT';
@@ -52,7 +52,11 @@ if(isset($_POST['login_button']))
 			$_SESSION["t_login_user_control"] = $t_login_user_control;
 			$_SESSION["t_login_user_status"] = $t_login_user_status;
 
-			if($t_login_user_control==0 or $t_login_user_control==1)
+			if($t_login_user_control==0)
+			{
+				header("Location: home.php");
+			}
+			if($t_login_user_control==1 and strtotime(date('H:i:s'))>=strtotime('17:00') and strtotime(date('H:i:s'))<=strtotime('23:59'))
 			{
 				header("Location: home.php");
 			}
