@@ -109,7 +109,7 @@ $qty_transaction=0;
 
 for($i=0;$i<$total_row;$i++)
 {
-  if(isset($_POST['c_name_'.$i]))
+  if(isset($_POST['c_name_'.$i]) and $_SESSION['user_submit']=='SUBMIT')
   {
     $name_=$_POST['c_name_'.$i];
     $DB_TABLE_NAME = 'T_T_TRANSACTION';
@@ -298,10 +298,10 @@ $button_transaction='button_transaction';
 
 
 
-if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' and $_POST['textbox_total']>=$total_belanja)
+if(isset($_POST['button_transaction']) and $_SESSION['user_submit']=='SUBMIT' and $_POST['textbox_total']!=null and $_POST['textbox_total']>=$total_belanja)
 {
   ?>
-  
+
   <script>
   window.open('receipt.php');
   </script>
