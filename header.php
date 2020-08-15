@@ -17,8 +17,9 @@ $t_login_user_control=$_SESSION["t_login_user_control"];
 			echo "<li".$selected_header[1]."> <a href='stock_information.php'> Stock</a></li>";
 			echo "<li".$selected_header[2]."> <a href='report.php'> Report</a></li>";
 			echo "<li".$selected_header[3]."> <a href='change_password.php'> Change Password</a></li>";
-			echo "<li".$selected_header[4]."> <a href='gaji_karyawan.php'> Gaji Karyawan</a></li>";
-	        echo "<li".$selected_header[5]."> <a href='index.php'> Logout</a></li>";
+			echo "<li".$selected_header[4]."> <a href='kehadiran.php'> Aproval Kehadiran</a></li>";
+			echo "<li".$selected_header[5]."> <a href='gaji_karyawan.php'> Gaji Karyawan</a></li>";
+	        echo "<li".$selected_header[6]."> <a href='index.php'> Logout</a></li>";
 		}
 		if($t_login_user_control==1) #kasir
 		{

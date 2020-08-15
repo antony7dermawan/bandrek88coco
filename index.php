@@ -26,7 +26,7 @@ $_SESSION['discount_qty']=0;
 $_SESSION['queue_id']=0;
 $_SESSION['discount_receipt']=0;
 $_SESSION['cash']=0;
-
+$_SESSION['date_to_insert']=date('Y-m-d');
 
 if(isset($_POST['login_button']))
 { 

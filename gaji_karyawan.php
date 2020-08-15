@@ -6,7 +6,7 @@ for($i=0;$i<20;$i++)
 {
   $selected_header[$i]='';
 }
-$selected_header[4]=" class='active'";
+$selected_header[5]=" class='active'";
 
 if(isset($_POST['return_logo']))
 {
