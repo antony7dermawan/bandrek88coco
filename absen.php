@@ -22,7 +22,7 @@ $t_login_user_control=$_SESSION["t_login_user_control"];
 date_default_timezone_set('Asia/Jakarta');
 $today= date('Y-m-d'); 
 $time_now = date('H:i:s');
-$time_in = '17:15';
+$time_in = '17:30';
 $time_in_limit = '16:00'
 $time_out = '00:00';
 $time_out_limit = '01:00';
