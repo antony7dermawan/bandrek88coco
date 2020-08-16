@@ -23,7 +23,9 @@ date_default_timezone_set('Asia/Jakarta');
 $today= date('Y-m-d'); 
 $time_now = date('H:i:s');
 $time_in = '17:15';
-$time_out = '23:59';
+$time_in_limit = '16:00'
+$time_out = '00:00';
+$time_out_limit = '01:00';
 $cut_off_start = 26;
 $cut_off_end = 25;
 
@@ -130,7 +132,7 @@ if($total_keluar==$total_masuk and $total_masuk==$total_day)
 $done = '';
 if(isset($_POST['submit']))
 { 
-    if(strtotime($time_now)<=strtotime($time_in)) #1 masuk
+    if(strtotime($time_now)<=strtotime($time_in) and strtotime($time_now)>=strtotime($time_in_limit)) #1 masuk
     {
       $DB_TABLE_NAME = 't_t_absent';
       $select_db = "SELECT * from {$DB_TABLE_NAME} where (username='{$t_login_user_username}' and DATE='{$today}' and time<='{$time_in}' and absent_status=1)";
@@ -148,7 +150,7 @@ if(isset($_POST['submit']))
       }
      
     }
-    if(strtotime($time_now)>=strtotime($time_out)) #2 pulang
+    if(strtotime($time_now)>=strtotime($time_out) and strtotime($time_now)<=strtotime($time_out_limit)) #2 pulang
     {
       $DB_TABLE_NAME = 't_t_absent';
       $select_db = "SELECT * from {$DB_TABLE_NAME} where (username='{$t_login_user_username}' and DATE='{$today}' and time>='{$time_out}' and absent_status=2)";
