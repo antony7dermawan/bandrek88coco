@@ -15,8 +15,10 @@ if(isset($_POST['return_logo']))
 date_default_timezone_set('Asia/Jakarta');
 
 
+$t_login_user_access=$_SESSION['t_login_user_access'];
+$t_login_user_control=$_SESSION["t_login_user_control"];
 
-
+$textbox_id_user=$_SESSION['t_login_user_username'];
 
 
 
@@ -107,7 +109,8 @@ $total_day=(round(abs(strtotime($today) - strtotime($date_before)) / (60*60*24),
 
 
 #declare v
-
+if($t_login_user_control==0) #karyawan
+{
       $DB_TABLE_NAME = 't_login_user';
       $select_db = "SELECT * from {$DB_TABLE_NAME} where (control='99' and access='{$t_login_user_access}')";
       $select_ex = $conn->query($select_db);
@@ -122,7 +125,24 @@ $total_day=(round(abs(strtotime($today) - strtotime($date_before)) / (60*60*24),
       }
 foreach( array_keys($id_kar) as $total_id_kar ){}
 
+}
+if($t_login_user_control==99) #karyawan
+{
+      $DB_TABLE_NAME = 't_login_user';
+      $select_db = "SELECT * from {$DB_TABLE_NAME} where (control='99' and access='{$t_login_user_access}' and username='{$textbox_id_user}')";
+      $select_ex = $conn->query($select_db);
+      if($select_ex->num_rows> 0)
+      {
+          while($select_db = $select_ex->fetch_assoc())
+          {
+            $id_kar[]= (($select_db['id']));
+            $username_kar[]= (($select_db['username']));
+            $name_kar[]= (($select_db['name']));
+          }   
+      }
+foreach( array_keys($id_kar) as $total_id_kar ){}
 
+}
 
 
 
@@ -133,12 +153,12 @@ date_default_timezone_set('Asia/Jakarta');
     $time_out = '22:00';
     $cut_off_start = 26;
     $cut_off_end = 25;
-
+    $hari_gajian = 27;
 
     $date_today = date('d');
 
 
-    if($date_today<=$cut_off_end)
+    if($date_today<=$hari_gajian)
     {
       $month_before = date("m", strtotime("-1 months"));
       $year_before = date("Y", strtotime("-1 months"));
@@ -152,7 +172,7 @@ date_default_timezone_set('Asia/Jakarta');
 
 
 
-    if($date_today>$cut_off_end)
+    if($date_today>$hari_gajian)
     {
       $month_before = date("m", strtotime("-0 months"));
       $year_before = date("Y", strtotime("-0 months"));
@@ -248,27 +268,35 @@ for($i=0;$i<=$total_id_kar;$i++)
     $tj_cuti[$i]= $hak_cuti[$i]*$tj_kehadiran;
 
 
-    $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*0))-$total_alpa[$i];
+    $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*0));
+    $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
+
     if($total_qty>=$range_1 and $total_qty<$range_2)
     {
-      $total_gaji[$i]= ($tj_cuti[$i]+$gaji_pokok+($bonus_1*1))-$total_alpa[$i];
+      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*1));
+      $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
     if($total_qty>=$range_2 and $total_qty<$range_3)
     {
-      $total_gaji[$i]= ($tj_cuti[$i]+$gaji_pokok+($bonus_1*2))-$total_alpa[$i];
+      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*2));
+      $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
     if($total_qty>=$range_3 and $total_qty<$range_4)
     {
-      $total_gaji[$i]= ($tj_cuti[$i]+$gaji_pokok+($bonus_1*3))-$total_alpa[$i];
+      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*3));
+      $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
     if($total_qty>=$range_4 and $total_qty<$range_5)
     {
-      $total_gaji[$i]= ($tj_cuti[$i]+$gaji_pokok+($bonus_1*4))-$total_alpa[$i];
+      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*4));
+      $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
     if($total_qty>=$range_5 )
     {
-      $total_gaji[$i]= ($tj_cuti[$i]+$gaji_pokok+($bonus_1*5))-$total_alpa[$i];
+      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*5));
+      $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
+    $total_gaji[$i]=(intval($total_gaji[$i]/1000))*1000;
 }
 
 
@@ -286,7 +314,7 @@ for($i=0;$i<=$total_id_kar;$i++)
     
     
     <div class='table_position'>
-      <h1> Gaji Karyawan</h1><br>
+      <h1> Hore.. Hari Ini Gajian... Tetap Semangat Ya.. Semoga Bulan depan Mencapai Target</h1><br>
       
       
       <form method = "POST" autocomplete="off">
@@ -295,8 +323,10 @@ for($i=0;$i<=$total_id_kar;$i++)
             <th>No</th>
             <th>Nama Karyawan</th>
             <th>Total Penjualan</th>
-            <th>Total Absen</th>
+            
             <th>TJ Cuti</th>
+            <th>Tot.Masuk</th>
+            <th>Tot.Keluar</th>
             <th>Gaji</th>
           </tr>
           <?php
@@ -307,8 +337,10 @@ for($i=0;$i<=$total_id_kar;$i++)
             echo '<th>'.($i+1).'</th>';
             echo '<th>'.($username_kar[$i]).'</th>';
             echo '<th>'.($total_qty).'</th>';
-            echo '<th>Rp '.number_format($pot_alpa[$i]).'</th>';
+            
             echo '<th>Rp '.number_format($tj_cuti[$i]).'</th>';
+            echo '<th>'.($total_masuk[$i]).'</th>';
+            echo '<th>'.($total_keluar[$i]).'</th>';
             echo '<th>Rp '.number_format($total_gaji[$i]).'</th>';
             echo '</tr>';
           }

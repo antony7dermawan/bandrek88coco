@@ -2,6 +2,9 @@
 $t_login_user_access=$_SESSION['t_login_user_access'];
 $t_login_user_control=$_SESSION["t_login_user_control"];
 
+$date_today = date('d');
+$hari_gajian = 27;
+
 
 ?>
 
@@ -31,6 +34,10 @@ $t_login_user_control=$_SESSION["t_login_user_control"];
 		{
 			echo "<li".$selected_header[0]."> <a href='absen.php'> absen</a></li>";
 			echo "<li".$selected_header[3]."> <a href='change_password.php'> Change Password</a></li>";
+			if($date_today==$hari_gajian)
+			{
+				echo "<li".$selected_header[5]."> <a href='gaji_karyawan.php'> Gaji Karyawan</a></li>";
+			}
 	        echo "<li".$selected_header[4]."> <a href='index.php'> Logout</a></li>";
 		}
 		
