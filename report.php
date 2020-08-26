@@ -45,6 +45,22 @@ if($total_sum==0)
 
 */
 
+$DB_TABLE_NAME = 'T_T_REPORT';
+$select_db = "SELECT  SUM(qty) qty from {$DB_TABLE_NAME} where (ID_DATE='{$selected_date}')";
+$select_ex = $conn->query($select_db);
+if($select_ex->num_rows> 0)
+{
+  while($select_db = $select_ex->fetch_assoc())
+  {
+    $total_qty= (($select_db['qty']));
+  }      
+}
+if($select_ex->num_rows== 0)
+{
+  $total_qty=0;
+}
+
+
 
 $DB_TABLE_NAME = 'T_T_REPORT';
 $select_db = "SELECT  SUM(TOTAL_CASH) TOTAL_CASH from {$DB_TABLE_NAME} where (ID_DATE='{$selected_date}')";
@@ -149,10 +165,12 @@ $total_modal = $total_sum-$total_profit;
 
     <?php
       echo 'OMSET = Rp '.number_format($total_sum).'<br>';
+      echo 'TOTAL CUP = '.$total_qty.'<br>';
       if($t_login_user_control==0) #admin
       {
         echo 'UNTUNG = Rp '.number_format($total_profit).'<br>';
         echo 'MODAL = Rp '.number_format($total_modal).'<br>';
+
       }
       
 
