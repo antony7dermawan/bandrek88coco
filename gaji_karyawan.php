@@ -105,7 +105,7 @@ if($select_ex->num_rows== 0)
 
 
 
-$total_day=(round(abs(strtotime($today) - strtotime($date_before)) / (60*60*24),0))+1;
+$total_day=(round(abs(strtotime($date_after) - strtotime($date_before)) / (60*60*24),0))+1;
 
 
 #declare v
@@ -208,8 +208,6 @@ date_default_timezone_set('Asia/Jakarta');
     }
     #$total_qty=3500;
 
-
-    $total_day=(round(abs(strtotime($today) - strtotime($date_before)) / (60*60*24),0))+1;
 
 
 
