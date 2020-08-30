@@ -22,13 +22,15 @@ $hari_gajian = 27;
 			echo "<li".$selected_header[3]."> <a href='change_password.php'> Change Password</a></li>";
 			echo "<li".$selected_header[4]."> <a href='kehadiran.php'> Aproval Kehadiran</a></li>";
 			echo "<li".$selected_header[5]."> <a href='gaji_karyawan.php'> Gaji Karyawan</a></li>";
-	        echo "<li".$selected_header[6]."> <a href='index.php'> Logout</a></li>";
+			echo "<li".$selected_header[6]."> <a href='stock_barang.php'> Stock Barang</a></li>";
+	        echo "<li".$selected_header[7]."> <a href='index.php'> Logout</a></li>";
 		}
 		if($t_login_user_control==1) #kasir
 		{
 			echo "<li".$selected_header[0]."> <a href='home.php'> Cashier</a></li>";
 			echo "<li".$selected_header[2]."> <a href='report.php'> Report</a></li>";
-	        echo "<li".$selected_header[4]."> <a href='index.php'> Logout</a></li>";
+			echo "<li".$selected_header[6]."> <a href='stock_barang.php'> Stock Barang</a></li>";
+	        echo "<li".$selected_header[7]."> <a href='index.php'> Logout</a></li>";
 		}
 		if($t_login_user_control==99) #karyawan
 		{
