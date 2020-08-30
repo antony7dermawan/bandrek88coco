@@ -28,19 +28,39 @@ $link_name = "Location: stock_barang.php";
 
 
 
-$colom_name[0]='No';
-$colom_name[1]='ID Barang';
-$colom_name[2]='Nama Barang';
-$colom_name[3]='Qty Barang';
 
 
 
 $insert_text="'','','','{$t_login_user_access}'";
 
-$colom_name_sql[0]='id';
-$colom_name_sql[1]='id_stock';
-$colom_name_sql[2]='stock_name';
-$colom_name_sql[3]='qty';
+
+
+if($t_login_user_control==0) #admin
+{
+  $colom_name[0]='No';
+  $colom_name[1]='ID Barang';
+  $colom_name[2]='Nama Barang';
+  $colom_name[3]='Qty Barang';
+
+  $colom_name_sql[0]='id';
+  $colom_name_sql[1]='id_stock';
+  $colom_name_sql[2]='stock_name';
+  $colom_name_sql[3]='qty';
+
+}
+
+if($t_login_user_control==1) #kasir
+{
+  $colom_name[0]='No';
+  $colom_name[1]='Nama Barang';
+  $colom_name[2]='Qty Barang';
+
+  $colom_name_sql[0]='id';
+  $colom_name_sql[1]='stock_name';
+  $colom_name_sql[2]='qty';
+
+}
+
 
 
 $total_data_in_one_page = 5;
@@ -199,9 +219,25 @@ for ($i = 0; $i <= $total_row; $i++)
                       {
                         echo $colom_data[$x][$i]=$i+1;
                       }
-                      IF($x<$total_colom+1 and $x>0 )
+
+
+                      if($t_login_user_control==0) #admin
                       {
-                        echo "<input type='text' name='textbox_".$x."_".$i."' value ='".$colom_data[$x][$i]."'>";
+                        IF($x<$total_colom+1 and $x>0 )
+                        {
+                          echo "<input type='text' name='textbox_".$x."_".$i."' value ='".$colom_data[$x][$i]."'>";
+                        }
+                      }
+                      if($t_login_user_control==1) #kasir
+                      {
+                        IF($x==$total_colom )
+                        {
+                          echo "<input type='text' name='textbox_".$x."_".$i."' value ='".$colom_data[$x][$i]."'>";
+                        }
+                        IF($x<$total_colom and $x>0)
+                        {
+                          echo $colom_data[$x][$i];
+                        }
                       }
                       
                       IF($x==$total_colom+1)
