@@ -137,14 +137,24 @@ if(isset($_POST['update']))
   {
     for($x=1;$x<=$total_colom;$x++)
     {
-      $data_to_update = $_POST["textbox_".$x."_".$i];
-      if($x==4)
+      if($t_login_user_control==0) #admin
       {
-        $data_to_update = $today;
+        $data_to_update = $_POST["textbox_".$x."_".$i];
+        
+        $update_db = "update {$DB_TABLE_NAME} set {$colom_name_sql[$x]}='{$data_to_update}' where({$colom_name_sql[0]}='{$colom_data[0][$i]}')";
+        $update_ex = $conn->query($update_db);
       }
-      $update_db = "update {$DB_TABLE_NAME} set {$colom_name_sql[$x]}='{$data_to_update}' where({$colom_name_sql[0]}='{$colom_data[0][$i]}')";
-      $update_ex = $conn->query($update_db);
-
+      if($t_login_user_control==1) #kasir
+      {
+        if($x==$total_colom)
+        {
+          $data_to_update = $_POST["textbox_".$x."_".$i];
+        
+          $update_db = "update {$DB_TABLE_NAME} set {$colom_name_sql[$x]}='{$data_to_update}' where({$colom_name_sql[0]}='{$colom_data[0][$i]}')";
+          $update_ex = $conn->query($update_db);
+        }
+        
+      }
     }
   }
   header($link_name);
