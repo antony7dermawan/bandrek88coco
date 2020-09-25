@@ -35,8 +35,12 @@ $range_5 = 3800;
 
 $bonus_1 = 100000;
 
+$gp[0]=0;
 
+$gp[1]=900000; #rita
+$gp[2]=0;
 
+$gp[3]=700000; #nanda
 
 
 
@@ -266,32 +270,32 @@ for($i=0;$i<=$total_id_kar;$i++)
     $tj_cuti[$i]= $hak_cuti[$i]*$tj_kehadiran;
 
 
-    $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*0));
+    $total_gaji[$i]=($tj_cuti[$i]+$gp[$i]+($bonus_1*0));
     $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
 
     if($total_qty>=$range_1 and $total_qty<$range_2)
     {
-      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*1));
+      $total_gaji[$i]=($tj_cuti[$i]+$gp[$i]+($bonus_1*1));
       $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
     if($total_qty>=$range_2 and $total_qty<$range_3)
     {
-      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*2));
+      $total_gaji[$i]=($tj_cuti[$i]+$gp[$i]+($bonus_1*2));
       $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
     if($total_qty>=$range_3 and $total_qty<$range_4)
     {
-      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*3));
+      $total_gaji[$i]=($tj_cuti[$i]+$gp[$i]+($bonus_1*3));
       $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
     if($total_qty>=$range_4 and $total_qty<$range_5)
     {
-      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*4));
+      $total_gaji[$i]=($tj_cuti[$i]+$gp[$i]+($bonus_1*4));
       $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
     if($total_qty>=$range_5 )
     {
-      $total_gaji[$i]=($tj_cuti[$i]+$gaji_pokok+($bonus_1*5));
+      $total_gaji[$i]=($tj_cuti[$i]+$gp[$i]+($bonus_1*5));
       $total_gaji[$i]=$total_gaji[$i]*(($total_masuk[$i]+$total_keluar[$i])/(2*$total_day));
     }
     $total_gaji[$i]=(intval($total_gaji[$i]/1000))*1000;
