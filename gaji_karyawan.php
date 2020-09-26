@@ -50,11 +50,14 @@ $time_now = date('H:i:s');
 $cut_off_start = 26;
 $cut_off_end = 25;
 
+$time_in = '17:00';
+    $time_out = '22:00';
 
+    $hari_gajian = 27;
 $date_today = date('d');
 
 
-if($date_today<=$cut_off_end)
+if($date_today<=$hari_gajian)
 {
   $month_before = date("m", strtotime("-1 months"));
   $year_before = date("Y", strtotime("-1 months"));
@@ -68,7 +71,7 @@ if($date_today<=$cut_off_end)
 
 
 
-if($date_today>$cut_off_end)
+if($date_today>$hari_gajian)
 {
   $month_before = date("m", strtotime("-0 months"));
   $year_before = date("Y", strtotime("-0 months"));
@@ -153,11 +156,7 @@ foreach( array_keys($id_kar) as $total_id_kar ){}
 date_default_timezone_set('Asia/Jakarta');
     $today= date('Y-m-d'); 
     $time_now = date('H:i:s');
-    $time_in = '17:00';
-    $time_out = '22:00';
-    $cut_off_start = 26;
-    $cut_off_end = 25;
-    $hari_gajian = 27;
+    
 
     $date_today = date('d');
 
